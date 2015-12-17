@@ -1,1 +1,7 @@
 /* Empty. Add your own CSS if you like */
+input.input-tts {
+  border: 1px solid #ccc;
+}
+div.parameters {
+  margin-top: 40px !important;
+}

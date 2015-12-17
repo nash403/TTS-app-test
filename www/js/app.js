@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('talkApp', ['ionic','talkApp.directives'])//, 'starter.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,29 +19,41 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // at start
+    window.tts.startup(startupWin, fail);
+    function startupWin(result) {
+      console.log('startupWin ok',result);
+    }
+    function win(result) {
+      console.log("Win = " + result);
+    }
+    function fail(result) {
+      console.log("Error = " + result);
+    }
   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/menu.html'/*,
+    controller: 'AppCtrl'*/
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.talk', {
+    url: '/talk',
     views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
+      'talktome': {
+        templateUrl: 'templates/talk.html'
       }
     }
   })
-
-  .state('app.browse', {
+  ;
+  /*.state('app.browse', {
       url: '/browse',
       views: {
         'menuContent': {
@@ -67,7 +79,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         controller: 'PlaylistCtrl'
       }
     }
-  });
+  });*/
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/talk');//'/app/playlists');
 });
