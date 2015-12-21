@@ -1,10 +1,5 @@
-// Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('talkApp', ['ionic','talkApp.directives'])//, 'starter.controllers'])
+angular.module('talkApp', ['ionic','talkApp.directives'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,18 +14,6 @@ angular.module('talkApp', ['ionic','talkApp.directives'])//, 'starter.controller
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-    // at start
-    window.tts.startup(startupWin, fail);
-    function startupWin(result) {
-      console.log('startupWin ok',result);
-    }
-    function win(result) {
-      console.log("Win = " + result);
-    }
-    function fail(result) {
-      console.log("Error = " + result);
-    }
   });
 })
 
@@ -40,8 +23,7 @@ angular.module('talkApp', ['ionic','talkApp.directives'])//, 'starter.controller
   .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html'/*,
-    controller: 'AppCtrl'*/
+    templateUrl: 'templates/menu.html'
   })
 
   .state('app.talk', {
@@ -51,35 +33,15 @@ angular.module('talkApp', ['ionic','talkApp.directives'])//, 'starter.controller
         templateUrl: 'templates/talk.html'
       }
     }
-  })
-  ;
-  /*.state('app.browse', {
-      url: '/browse',
+  });
+  /*.state('app.param', {
+      url: '/param',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
+        'talktome': {
+          templateUrl: 'templates/param.html'
         }
       }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });*/
+    })*/
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/talk');//'/app/playlists');
 });

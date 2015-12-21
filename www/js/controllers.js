@@ -12,92 +12,52 @@ angular.module('talkApp.directives',[])
           console.log("Error = " + result);
         }
         scope.addLang = (lang) => {
-          scope.langs.push(lang);
+          scope.langs.push({lang:lang});
         }
 
-        scope.changeLang = (lang) => {
-          console.log("changing");
-          window.tts.setLanguage(lang,win, fail);
-          scope.curLang = window.tts.getLanguage(win, fail);
-          scope.$apply();
+        scope.changeLang = () => {
+          console.log("changing",scope.curLang.lang);
+          TTS.setLanguage(scope.curLang.lang,(result)=>{console.log("change ok "+result);}, (result)=>{console.log("change ko "+result);});
         }
         // on click on button
         scope.speak = () => {
           console.log("Entered text to speak : "+scope.tts);
-          window.tts.speak(scope.tts ==""?"Enter a text to speak":scope.tts);
+          TTS.speak((scope.tts ==""?"Enter a text to speak":scope.tts),()=>{console.log("speak ok");},(result)=>{console.log("speak ko "+result);});
         }
         $ionicPlatform.ready(() => {
-          scope.curLang = window.tts.getLanguage(win, fail);
-          window.tts.isLanguageAvailable("en", function() {
+          console.log('gzegmihxmilqnsmlxnjukegzhflc', TTS);
+          // at start
+          TTS.startup((result)=>{
+            console.log("start ok "+result);
+          }, (result)=>{
+            console.log("start ko "+result);
+          });
+          //scope.curLang = 'fr-FR';
+          TTS.isLanguageAvailable("en", function() {
+            console.log('ajout en ok');
             scope.addLang("en");
-          }, fail);
-          window.tts.isLanguageAvailable("fr", function() {
+          }, (result)=>{console.log("ajout en ko "+result);});
+          TTS.isLanguageAvailable("fr", function() {
+            console.log('ajout fr ok');
             scope.addLang("fr");
-          }, fail);
-          if (!scope.curLang) {window.tts.setLanguage("fr",win, fail); scope.curLang = "fr";}
-          window.tts.speak("The text to speech service is ready");
-          console.log("langue: "+scope.curLang,scope.langs);
+          }, (result)=>{console.log("ajout fr ko "+result);});
+          if (!scope.curLang) {
+            TTS.setLanguage(
+              "fr",
+              (result)=>{
+                console.log("set debut ok "+result);
+              },
+              (result)=>{
+                console.log("set debut ko "+result);
+              }
+            );
+            scope.curLang = "fr";
+          }
+          TTS.speak("The text to speech service is ready",()=>{console.log("speak ok ");},(result)=>{console.log("speak ko "+result);});
+          console.log("langue: ",scope.curLang,scope.langs);
         })
 
 
       }
     }
   }]);
-
-
-// angular.module('starter.controllers', [])
-//
-// .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-//
-//   // With the new view caching in Ionic, Controllers are only called
-//   // when they are recreated or on app start, instead of every page change.
-//   // To listen for when this page is active (for example, to refresh data),
-//   // listen for the $ionicView.enter event:
-//   //$scope.$on('$ionicView.enter', function(e) {
-//   //});
-//
-//   // Form data for the login modal
-//   $scope.loginData = {};
-//
-//   // Create the login modal that we will use later
-//   $ionicModal.fromTemplateUrl('templates/login.html', {
-//     scope: $scope
-//   }).then(function(modal) {
-//     $scope.modal = modal;
-//   });
-//
-//   // Triggered in the login modal to close it
-//   $scope.closeLogin = function() {
-//     $scope.modal.hide();
-//   };
-//
-//   // Open the login modal
-//   $scope.login = function() {
-//     $scope.modal.show();
-//   };
-//
-//   // Perform the login action when the user submits the login form
-//   $scope.doLogin = function() {
-//     console.log('Doing login', $scope.loginData);
-//
-//     // Simulate a login delay. Remove this and replace with your login
-//     // code if using a login system
-//     $timeout(function() {
-//       $scope.closeLogin();
-//     }, 1000);
-//   };
-// })
-//
-// .controller('PlaylistsCtrl', function($scope) {
-//   $scope.playlists = [
-//     { title: 'Reggae', id: 1 },
-//     { title: 'Chill', id: 2 },
-//     { title: 'Dubstep', id: 3 },
-//     { title: 'Indie', id: 4 },
-//     { title: 'Rap', id: 5 },
-//     { title: 'Cowbell', id: 6 }
-//   ];
-// })
-//
-// .controller('PlaylistCtrl', function($scope, $stateParams) {
-// });

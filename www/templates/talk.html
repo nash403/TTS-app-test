@@ -1,0 +1,35 @@
+<ion-view view-title="Talk to me">
+  <ion-content>
+    <h4 class="text-center page-header">This app talks to you !</h4>
+    <div class="container" talk-with-me="">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+          <div class="input-group">
+            <input type="text" class="form-control input-tts" ng-model="tts" placeholder="Enter a text to speak"/>
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="button" ng-click="speak()"><i class="icon ion-speakerphone"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row parameters">
+        <div class="col-xs-10 col-xs-offset-1">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Parameters</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item">Current language : {{ curLang.lang }}</li>
+                <li class="list-group-item"> Language choice :
+                  <select ng-change="changeLang()" ng-model="curLang" ng-options="l.lang for l in langs">
+                  </select>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
