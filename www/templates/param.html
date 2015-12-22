@@ -1,23 +1,40 @@
 <ion-view view-title="Parameters">
   <ion-content>
     <div class="container">
-      <div class="row parameters">
-        <div class="col-xs-10 col-xs-offset-1">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Parameters</h3>
+      <h4 class="page-header">Options</h4>
+      <div ng-controller="optCtrl">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="input-group">
+              <span>Langue actuelle ?</span>
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" ng-click="whichLang()"><i class="icon ion-ios-eye"></i></button>
+              </span>
             </div>
-            <div class="panel-body">
-              <ul class="list-group">
-                <li class="list-group-item">Current language : {{ curLang }}</li>
-                <li class="list-group-item"> Language choice :
-                  <select ng-change="changeLang()" ng-model="cuLang" ng-options="lang in langs">
-                  </select>
-                </li>
-              </ul>
+          </li>
+          <li class="list-group-item"> Morceaux de phrases séparés par des silences :
+            <div class="form-horizontal">
+              <input type="text" class="form-control" placeholder="Morceau de phrase 1" ng-model="morceau1"/>
+              <input type="text" class="form-control" placeholder="Morceau de phrase 2" ng-model="morceau2"/>
+              <input type="text" class="form-control" placeholder="Morceau de phrase 3" ng-model="morceau3"/>
             </div>
-          </div>
-        </div>
+            <div class="form-inline">
+              <div class="form-group">
+                <label>Temps (ms) après morceau 1 </label>
+                <input type="number" class="form-control" min="0" max="5" ng-model="time1"/>
+              </div>
+              <div class="form-group">
+                <label>Temps (ms) après morceau 2 </label>
+                <input type="number" class="form-control" min="0" max="5" ng-model="time2"/>
+              </div>
+              <div class="form-group">
+                <label>Temps (ms) après morceau 3 </label>
+                <input type="number" class="form-control" min="0" max="5" ng-model="time3"/>
+              </div>
+              <button class="btn btn-primary" type="button" ng-click="speakSentence()"><i class="icon ion-speakerphone"></i></button>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </ion-content>
